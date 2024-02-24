@@ -1,70 +1,78 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dynamic Table Components [MrDark]
 
-## Available Scripts
+(I'm trying my best to make code simple and easy to understant for developers to work on it.)
 
-In the project directory, you can run:
+Table component has main 2 props. we can add more props as per requirements. [Do not add props if you don't really need it. avoid adding props untill it needed to add. 
+you can do many things like adding css to row or td from `cols` array without adding more props] 
+1. cols
+2. response
 
-### `npm start`
+1. cols type is an Array. It has multiple objects and each object inside array represents data of one cell of row.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+STRUCTURE OF `cols` Array
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+[{
+    title: "",
+    key: "",
+    id: "",
+    isSortable: "",
+    isKey: false or true,
+    render: (rowData)=>{
+        return rowData;
+    },
+    bodyStyle: "",
+    headStyle: "",
+    bodyClass: "",   
+    headClass: "",   
+    click: ()={}
+}]
+```
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The above is structure of cols array object of how it looks. if you have 5 cell in a row. then your array will have 5 object.
 
-### `npm run build`
+Explanation: 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. title: title will be displayed in the header of tables. whatever you will write in title: "Head" it will be displayed in table head.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. key and isKey: key conatains the name of `key` from you response object. 
+[let say you a response from API which looks like {name: "sarfaraj", occ: "developer", company: 'haix'}. Now here i will assign name to key
+it will look like. {key: 'name'} remeber key name must be same as the key name you getting from response. suppose you have key named "name" and you have assign {key: "Name"} it will not work. coz `key` names are case-sensetive] 
+and to display data you have to set `isKey` to true. otherwise it will not display data on web page.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. render: render property of object takes a function and return every index data from array response. From this method you can access the respose data. and this method is responsible to display the data ion web page. 
+Function must have a return statement. 
 
-### `npm run eject`
+4. bodyStyle: this property applies the inline styling to the particular cell of table row (i.e table td tags cell)
+5. bodyClass: this property added classes to the particular cell of row.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+6. similar is for `headStyle` and `headClass` this 2 properties appplies to the header cells of table.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+7. isSortable: this property takes a bolean value true or false. this property depends on `key` property you must provide key property to make sortable work.
+    if you assign isSortable to true. Then when click on the header of any column it will sort the data in assending or dessending order.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Table props
+## Some props you can pass directly to the table and you don't need to pass it from array object.
 
-## Learn More
+  cols,
+  response,
+  isPaginate,
+  headerClass,
+  rowHover,
+  numberOfData,
+  isBgTransparent,
+  PaginationOnButtonClick,
+  fixedHeight,
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Explanation:
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Note: Remeber one object in arrray represents a single cell in a row. it does not represents the whole row.
+But whole array of objects represents a single row of table.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+NOTE: this doc is still incomplete. 
